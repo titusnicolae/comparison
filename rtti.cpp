@@ -1,14 +1,15 @@
 #include "rtti.h"
 static int global;
 Number* Mul::mul(Number* x, Number* y)
-{ func f=m[std::make_pair(typeid(*x).name(),typeid(*y).name())];
+{ 
+  func f=m[x->gs()][y->gs()];
   f(x,y);
 } 
 Number* Mul::mulPyNumber_PyNumber(Number* x, Number* y)
 { 
 }
 Number* Mul::mulMPZ_MPZ(Number* x, Number* y)
-{  
+{ 
 }
 Number* Mul::mulMPQ_MPQ(Number* x, Number* y)
 {  
@@ -17,12 +18,11 @@ Number* Mul::mulMPQC_MPQC(Number* x, Number* y)
 {  
 }
 Number* Mul::mulMPFR_MPFR(Number* x, Number* y)
-{  
+{ 
 }
 Number* Mul::mulMPFC_MPFC(Number* x, Number* y)
 {  
 }
-
 Number* Mul::mulPyNumber_MPZ(Number* x, Number* y)
 {  
 }
@@ -73,50 +73,14 @@ Number* Mul::mulMPFR_MPFC(Number* x, Number* y)
 { 
 }
 
-std::map<std::pair<std::string, std::string>, func> Mul::m=
-{ {{typeid(PyNumber).name(),typeid(PyNumber).name()},Mul::mulPyNumber_PyNumber},
-  {{typeid(MPZ).name(),typeid(MPZ).name()},Mul::mulMPZ_MPZ},
-  {{typeid(MPQ).name(),typeid(MPQ).name()},Mul::mulMPQ_MPQ},
-  {{typeid(MPQC).name(),typeid(MPQC).name()},Mul::mulMPQC_MPQC},
-  {{typeid(MPFR).name(),typeid(MPFR).name()},Mul::mulMPFR_MPFR},
-  {{typeid(MPFC).name(),typeid(MPFC).name()},Mul::mulMPFC_MPFC},
-
-  {{typeid(PyNumber).name(),typeid(MPZ).name()},Mul::mulPyNumber_MPZ},
-  {{typeid(MPZ).name(),typeid(PyNumber).name()},Mul::mulPyNumber_MPZ},
-  {{typeid(PyNumber).name(),typeid(MPQ).name()},Mul::mulPyNumber_MPQ},
-  {{typeid(MPQ).name(),typeid(PyNumber).name()},Mul::mulPyNumber_MPQ},
-  {{typeid(PyNumber).name(),typeid(MPQC).name()},Mul::mulPyNumber_MPQC},
-  {{typeid(MPQC).name(),typeid(PyNumber).name()},Mul::mulPyNumber_MPQC},
-  {{typeid(PyNumber).name(),typeid(MPFR).name()},Mul::mulPyNumber_MPFR},
-  {{typeid(MPFR).name(),typeid(PyNumber).name()},Mul::mulPyNumber_MPFR},
-  {{typeid(PyNumber).name(),typeid(MPFC).name()},Mul::mulPyNumber_MPFC},
-  {{typeid(MPFC).name(),typeid(PyNumber).name()},Mul::mulPyNumber_MPFC},
-
-  {{typeid(MPZ).name(),typeid(MPQ).name()},Mul::mulMPZ_MPQ},
-  {{typeid(MPQ).name(),typeid(MPZ).name()},Mul::mulMPZ_MPQ},
-  {{typeid(MPZ).name(),typeid(MPQC).name()},Mul::mulMPZ_MPQC},
-  {{typeid(MPQC).name(),typeid(MPZ).name()},Mul::mulMPZ_MPQC},
-  {{typeid(MPZ).name(),typeid(MPFR).name()},Mul::mulMPZ_MPFR},
-  {{typeid(MPFR).name(),typeid(MPZ).name()},Mul::mulMPZ_MPFR},
-  {{typeid(MPZ).name(),typeid(MPFC).name()},Mul::mulMPZ_MPFC},
-  {{typeid(MPFC).name(),typeid(MPZ).name()},Mul::mulMPZ_MPFC},
-
-  {{typeid(MPQ).name(),typeid(MPQC).name()},Mul::mulMPQ_MPQC},
-  {{typeid(MPQC).name(),typeid(MPQ).name()},Mul::mulMPQ_MPQC},
-  {{typeid(MPQ).name(),typeid(MPFR).name()},Mul::mulMPQ_MPFR},
-  {{typeid(MPFR).name(),typeid(MPQ).name()},Mul::mulMPQ_MPFR},
-  {{typeid(MPQ).name(),typeid(MPFC).name()},Mul::mulMPQ_MPFC},
-  {{typeid(MPFC).name(),typeid(MPQ).name()},Mul::mulMPQ_MPFC},
-
-  {{typeid(MPQC).name(),typeid(MPFR).name()},Mul::mulMPQC_MPFR},
-  {{typeid(MPFR).name(),typeid(MPQC).name()},Mul::mulMPQC_MPFR},
-  {{typeid(MPQC).name(),typeid(MPFC).name()},Mul::mulMPQC_MPFC},
-  {{typeid(MPFC).name(),typeid(MPQC).name()},Mul::mulMPQC_MPFC},
-
-  {{typeid(MPFR).name(),typeid(MPFC).name()},Mul::mulMPFR_MPFC},
-  {{typeid(MPFC).name(),typeid(MPFR).name()},Mul::mulMPFR_MPFC},
+func Mul::m[7][7]={
+{Mul::mulPyNumber_PyNumber,Mul::mulPyNumber_MPZ,Mul::mulPyNumber_MPQ,Mul::mulPyNumber_MPQC,Mul::mulPyNumber_MPFR,Mul::mulPyNumber_MPFC},
+{Mul::mulPyNumber_MPZ,Mul::mulMPZ_MPZ,Mul::mulMPZ_MPQ,Mul::mulMPZ_MPQC,Mul::mulMPZ_MPFR,Mul::mulMPZ_MPFC},
+{Mul::mulPyNumber_MPQ,Mul::mulMPZ_MPQ,Mul::mulMPQ_MPQ,Mul::mulMPQ_MPQC,Mul::mulMPQ_MPFR,Mul::mulMPQ_MPFC},
+{Mul::mulPyNumber_MPQC,Mul::mulMPZ_MPQC,Mul::mulMPQ_MPQC,Mul::mulMPQC_MPQC,Mul::mulMPQC_MPFR,Mul::mulMPQC_MPFC},
+{Mul::mulPyNumber_MPFR,Mul::mulMPZ_MPFR,Mul::mulMPQ_MPFR,Mul::mulMPQC_MPFR,Mul::mulMPFR_MPFR,Mul::mulMPFR_MPFC},
+{Mul::mulPyNumber_MPFC,Mul::mulMPZ_MPFC,Mul::mulMPQ_MPFC,Mul::mulMPQC_MPFC,Mul::mulMPFR_MPFC,Mul::mulMPFC_MPFC},
 };
-
 
 int main ()
 { 

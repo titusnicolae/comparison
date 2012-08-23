@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <utility>
+#define N 10
 class Number;
 class PyNumber;
 class MPZ;
@@ -14,12 +15,14 @@ class MPFC;
 typedef Number* (*func)(Number*,Number*); 
 
 class Number
-{ virtual void something()
-  {}
+{ 
+  public:
+  static int id;
+  virtual int gs(){}
 };
 
 class Mul
-{ static std::map<std::pair<std::string, std::string>,func> m;
+{ static func m[7][7];  
   public:
   static Number* mul(Number* x, Number* y);
   static Number* mulPyNumber_PyNumber(Number* x, Number* y);
@@ -51,31 +54,43 @@ class Mul
 };
 
 class PyNumber : public Number
-{
-
+{ public:
+  int gs()
+  { return 0;
+  }
 };
 
 class MPZ : public Number
-{
-
+{ public:
+  int gs()
+  { return 1; 
+  }
 };
 
 class MPQ : public Number
-{
-
+{ public:
+  int gs()
+  { return 2;
+  }
 };
 
 class MPQC : public Number
-{
-
+{ public:
+  int gs()
+  { return 3;
+  }
 };
 
 class MPFR : public Number
-{
-
+{ public:
+  int gs()
+  { return 4;
+  }
 };
 
 class MPFC : public Number
-{
-
+{ public:
+  int gs()
+  { return 5;
+  }
 };
