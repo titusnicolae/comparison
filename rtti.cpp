@@ -127,7 +127,7 @@ int main ()
   MPFR* mpfr=new MPFR();
   MPFC* mpfc=new MPFC();
   
-  for(int i=0;i<1000000;i++)
+  for(int i=0;i<123456;i++)
   { 
     Mul::mul(py,py); 
     Mul::mul(py,mpz); 

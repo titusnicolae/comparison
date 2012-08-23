@@ -1,1 +1,3 @@
 compare switch, visitor pattern, RTTI performance
+visitor 31ms
+rtti	2110ms
