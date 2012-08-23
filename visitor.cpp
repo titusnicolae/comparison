@@ -1,6 +1,6 @@
 #include "visitor.h"
 #include <iostream>
-#define compute for(int i=0;i<100;i++){global++;}
+#define compute 
 static int global;
 Number* PyNumber::vmul(Number* n)
 { n->mul(this);
@@ -135,36 +135,50 @@ Number* MPFC::mul(MPFC* n)
 }
 
 int main()
-{ MPZ* mpz=new MPZ(); 
+{ PyNumber* py=new PyNumber();
+  MPZ* mpz=new MPZ(); 
   MPQ* mpq=new MPQ(); 
   MPQC* mpqc=new MPQC(); 
   MPFR* mpfr=new MPFR(); 
   MPFC* mpfc=new MPFC();
+
   for(int i=0;i<1000000;i++)
-  { mpz->mul(mpz);  
+  { py->mul(py);
+    py->mul(mpz);  
+    py->mul(mpq); 
+    py->mul(mpqc);
+    py->mul(mpfr);
+    py->mul(mpfc);
+    
+    mpz->mul(py);
+    mpz->mul(mpz);  
     mpz->mul(mpq); 
     mpz->mul(mpqc);
     mpz->mul(mpfr);
     mpz->mul(mpfc);
-    
+   
+    mpq->mul(py);
     mpq->mul(mpz);  
     mpq->mul(mpq); 
     mpq->mul(mpqc);
     mpq->mul(mpfr);
     mpq->mul(mpfc);
 
+    mpqc->mul(py);
     mpqc->mul(mpz);  
     mpqc->mul(mpq); 
     mpqc->mul(mpqc);
     mpqc->mul(mpfr);
     mpqc->mul(mpfc);
 
+    mpfr->mul(py);
     mpfr->mul(mpz);  
     mpfr->mul(mpq); 
     mpfr->mul(mpqc);
     mpfr->mul(mpfr);
     mpfr->mul(mpfc);
 
+    mpfc->mul(py);
     mpfc->mul(mpz);  
     mpfc->mul(mpq); 
     mpfc->mul(mpqc);
